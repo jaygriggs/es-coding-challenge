@@ -7,10 +7,12 @@ class UserModel {
     public function getByUsername($username) {
         
         $db = DB::connect();
-        $result = $db->query('SELECT * FROM employees WHERE username=\'' . $username . '\'');
+        $stmt = $db->prepare('SELECT id, username, password FROM employees WHERE username = :username');
+        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
         
-        if ( $result ) {
-            $row = $result->fetchObject();
+        if ( $stmt ) {
+            $row = $stmt->fetchObject();
             return $row;
         }
     }

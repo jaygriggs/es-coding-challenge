@@ -16,6 +16,7 @@ switch( $req_obj ) {
         $auth->requireLogin();
         $api = new EmployeeApi();
         $data = $api->employeeDataGet( $_GET['id'] ) ;
+        break;
     case 'auth':
         if ( $req_type == 'doLogin' ) {
             $data = $auth->doLogin( $_REQUEST['username'], $_REQUEST['password'] );
