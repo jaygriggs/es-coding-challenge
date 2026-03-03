@@ -48,10 +48,28 @@ class EmployeeModel {
         return $stmt->execute($params);
     }
 
+    public function create($data) {
+
+        $db = DB::connect();
+        $sql = 'INSERT INTO employees (first_name, last_name, phone, office_number, date_of_birth, employee_category, username, password) VALUES (:first_name, :last_name, :phone, :office_number, :date_of_birth, :employee_category, :username, :password)';
+        $stmt = $db->prepare($sql);
+        $stmt->execute([
+            ':first_name' => $data['first_name'],
+            ':last_name' => $data['last_name'],
+            ':phone' => !empty($data['phone']) ? $data['phone'] : null,
+            ':office_number' => !empty($data['office_number']) ? $data['office_number'] : null,
+            ':date_of_birth' => !empty($data['date_of_birth']) ? $data['date_of_birth'] : null,
+            ':employee_category' => !empty($data['employee_category']) ? $data['employee_category'] : null,
+            ':username' => $data['username'],
+            ':password' => password_hash($data['password'], PASSWORD_DEFAULT)
+        ]);
+        return $db->lastInsertId();
+    }
+
     public function getAll() {
 
         $db = DB::connect();
-        $stmt = $db->prepare('SELECT id, first_name, last_name, username, employee_category, is_admin FROM employees ORDER BY last_name, first_name');
+        $stmt = $db->prepare('SELECT id, first_name, last_name, username, date_of_birth, employee_category, is_admin FROM employees ORDER BY last_name, first_name');
         $stmt->execute();
         return $stmt->fetchAll();
     }

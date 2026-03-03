@@ -27,6 +27,34 @@ switch( $req_obj ) {
             break;
         }
 
+        if ( $req_type === 'create' ) {
+            if ( !$is_admin ) {
+                header("HTTP/1.1 403 Access Denied");
+                $data = [ 'success' => false, 'msg' => 'Access denied' ];
+                break;
+            }
+            if ( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+                header("HTTP/1.1 405 Method Not Allowed");
+                $data = [ 'success' => false, 'msg' => 'Invalid request method' ];
+                break;
+            }
+
+            $errors = [];
+            if ( empty($_POST['first_name']) ) { $errors[] = 'First name is required'; }
+            if ( empty($_POST['last_name']) ) { $errors[] = 'Last name is required'; }
+            if ( empty($_POST['username']) ) { $errors[] = 'Username is required'; }
+            if ( empty($_POST['password']) ) { $errors[] = 'Password is required'; }
+
+            if ( !empty($errors) ) {
+                header("HTTP/1.1 400 Bad Request");
+                $data = [ 'success' => false, 'msg' => implode('; ', $errors) ];
+                break;
+            }
+
+            $data = $api->employeeCreate( $_POST );
+            break;
+        }
+
         $request_id = isset($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
 
         if ( !$is_admin && $request_id !== (int) $auth_data['id'] ) {

@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded',
     }
 );
 
+const formatDOB = function(dateStr) {
+    let parts = dateStr.split('-');
+    return parseInt(parts[1]) + '-' + parseInt(parts[2]) + '-' + parts[0];
+}
+
 const renderEmployees = function(employees) {
     let tableBody = document.querySelector('#employee_table tbody');
     tableBody.innerHTML = '';
@@ -36,6 +41,7 @@ const renderEmployees = function(employees) {
         let row = document.createElement('tr');
         let nameCell = document.createElement('td');
         let usernameCell = document.createElement('td');
+        let dobCell = document.createElement('td');
         let categoryCell = document.createElement('td');
         let roleCell = document.createElement('td');
         let actionCell = document.createElement('td');
@@ -43,14 +49,17 @@ const renderEmployees = function(employees) {
 
         nameCell.textContent = employee.first_name + ' ' + employee.last_name;
         usernameCell.textContent = employee.username;
+        dobCell.textContent = employee.date_of_birth ? formatDOB(employee.date_of_birth) : '—';
         categoryCell.textContent = employee.employee_category || '';
         roleCell.textContent = employee.is_admin == 1 ? 'Admin' : 'Employee';
         editLink.textContent = 'Edit';
         editLink.href = '/frontend/employee_edit.html?id=' + employee.id;
+        editLink.classList.add('btn', 'btn-primary', 'btn-sm');
 
         actionCell.appendChild(editLink);
         row.appendChild(nameCell);
         row.appendChild(usernameCell);
+        row.appendChild(dobCell);
         row.appendChild(categoryCell);
         row.appendChild(roleCell);
         row.appendChild(actionCell);

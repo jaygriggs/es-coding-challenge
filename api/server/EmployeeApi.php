@@ -19,6 +19,14 @@ class EmployeeApi {
 
     }
 
+    public function employeeCreate( $data ) {
+
+        $model = new EmployeeModel();
+        $id = $model->create($data);
+        return [ 'success' => true, 'id' => $id ];
+
+    }
+
     public function employeeListGet() {
 
         $model = new EmployeeModel();

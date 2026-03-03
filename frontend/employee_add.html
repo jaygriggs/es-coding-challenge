@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Employee</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/app.css">
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/ui.js"></script>
+<script type="text/javascript" src="js/add.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="/frontend/dashboard.html">Employee Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/frontend/dashboard.html" id="nav_home">Home</a>
+                <a class="nav-link" href="/frontend/employee_edit.html" id="nav_profile">My Profile</a>
+                <a class="nav-link" href="/frontend/employee_list.html" id="nav_employee_list" style="display:none;">Employee List</a>
+                <a class="nav-link" href="#" id="nav_logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5 class="card-title mb-1">Add New Employee</h5>
+                    <p class="text-muted mb-4">Create a new employee account.</p>
+                </div>
+            </div>
+            <form id="add_employee_form" action="" method="POST" class="row g-3" novalidate>
+                <div class="col-md-6">
+                    <label for="first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+                    <input id="first_name" type="text" name="first_name" class="form-control" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="last_name" class="form-label">Last Name <span class="text-danger">*</span></label>
+                    <input id="last_name" type="text" name="last_name" class="form-control" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                    <input id="username" type="text" name="username" class="form-control" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input id="password" type="password" name="password" class="form-control" required>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input id="phone" type="text" name="phone" class="form-control">
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="office_number" class="form-label">Office Number</label>
+                    <input id="office_number" type="text" name="office_number" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="date_of_birth" class="form-label">Date of Birth</label>
+                    <input id="date_of_birth" type="date" name="date_of_birth" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="employee_category" class="form-label">Employee Category</label>
+                    <select id="employee_category" name="employee_category" class="form-select">
+                        <option value="">Select</option>
+                        <option value="full_time">Full Time</option>
+                        <option value="part_time">Part Time</option>
+                        <option value="intern">Intern</option>
+                        <option value="contractor">Contractor</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Create Employee</button>
+                    <a href="/frontend/employee_list.html" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="app_toast" class="toast text-bg-info" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

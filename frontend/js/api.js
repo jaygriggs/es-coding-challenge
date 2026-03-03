@@ -33,6 +33,12 @@ class EmployeeApi {
         return this.doRequest('employee', { req: 'list' } );
     }
 
+    createEmployee(data) {
+        let params = Object.assign({}, data);
+        params.req = 'create';
+        return this.doRequest('employee', params, 'POST');
+    }
+
     updateData(id, data) {
         let params = Object.assign({}, data);
         params.id = id;
