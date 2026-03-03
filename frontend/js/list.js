@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded',
         api.requireLogin().then(
             function( auth_data ) {
                 let is_admin = auth_data.is_admin == 1;
-                initNav(is_admin);
+                initNavbar(auth_data);
 
                 if ( !is_admin ) {
                     document.location.href = '/frontend/employee_edit.html';
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded',
                     }
                 ).catch(
                     function() {
-                        showMessage('Unable to load employee list.', 'error');
+                        showToast('Unable to load employee list.', 'error');
                     }
                 );
             }
@@ -59,27 +59,4 @@ const renderEmployees = function(employees) {
     });
 }
 
-const showMessage = function(message, type) {
-    let msgEl = document.getElementById('list_msg');
-    msgEl.className = 'message ' + type;
-    msgEl.innerText = message;
-    msgEl.style.display = 'block';
-}
-
-const initNav = function(is_admin) {
-    let listLink = document.getElementById('nav_employee_list');
-    if ( listLink ) {
-        listLink.style.display = is_admin ? 'inline' : 'none';
-    }
-
-    let logoutLink = document.getElementById('nav_logout');
-    if ( logoutLink ) {
-        logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            let api = new EmployeeApi();
-            api.doLogout().then(function() {
-                document.location.href = '/frontend/login.html';
-            });
-        });
-    }
-}
+ 

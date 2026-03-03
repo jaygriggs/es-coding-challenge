@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Employee List</title>
+<title>Employee Dashboard</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/app.css">
 <script type="text/javascript" src="js/api.js"></script>
 <script type="text/javascript" src="js/ui.js"></script>
-<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript" src="js/dashboard.js"></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="/frontend/dashboard.html" id="nav_home">Home</a>
                 <a class="nav-link" href="/frontend/employee_edit.html" id="nav_profile">My Profile</a>
-                <a class="nav-link" href="/frontend/employee_list.html" id="nav_employee_list">Employee List</a>
+                <a class="nav-link" href="/frontend/employee_list.html" id="nav_employee_list" style="display:none;">Employee List</a>
                 <a class="nav-link" href="#" id="nav_logout">Logout</a>
             </div>
         </div>
@@ -28,27 +28,29 @@
 </nav>
 
 <div class="container my-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h5 class="card-title mb-1">Employee Directory</h5>
-                    <p class="text-muted mb-0">Admins can edit any employee record.</p>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h4 class="card-title">Welcome back</h4>
+                    <p class="text-muted">Use the dashboard to keep your employee information up to date.</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="/frontend/employee_edit.html" class="btn btn-primary">Update My Profile</a>
+                        <a href="/frontend/employee_list.html" class="btn btn-outline-primary" id="admin_list_btn" style="display:none;">Manage Employees</a>
+                    </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table id="employee_table" class="table table-striped align-middle">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Category</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Tips</h5>
+                    <ul class="text-muted mb-0">
+                        <li>Keep your phone and office number updated.</li>
+                        <li>Admins can review and edit any employee record.</li>
+                        <li>Log out after finishing edits.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

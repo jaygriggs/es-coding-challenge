@@ -12,19 +12,31 @@ document.addEventListener('DOMContentLoaded',
                 let username = document.getElementById('username').value;
                 let password = document.getElementById('password').value;
 
-                document.getElementById('login_msg').style.display = 'none';
+                clearFieldError('username');
+                clearFieldError('password');
 
                 let api = new EmployeeApi();
 
+                if ( !username ) {
+                    invalidateField('username');
+                }
+                if ( !password ) {
+                    invalidateField('password');
+                }
+
+                if ( !username || !password ) {
+                    showToast('Please enter your username and password.', 'error');
+                    return;
+                }
+
                 api.doLogin(username, password).then (
                     function( data ) {
-                        document.location.href = '/frontend/employee_edit.html';
+                        document.location.href = '/frontend/dashboard.html';
                     }
                 )
                 .catch( 
                     function(data) {
-                        document.getElementById('login_msg').style.display = 'block';
-                        document.getElementById('login_msg').innerHTML = 'Invalid Credentials';
+                        showToast('Invalid credentials. Please try again.', 'error');
                     }
                 )
             }
@@ -33,4 +45,17 @@ document.addEventListener('DOMContentLoaded',
     }
 );
 
+const invalidateField = function(fieldId) {
+    let el = document.getElementById(fieldId);
+    if ( el ) {
+        el.classList.add('is-invalid');
+    }
+}
+
+const clearFieldError = function(fieldId) {
+    let el = document.getElementById(fieldId);
+    if ( el ) {
+        el.classList.remove('is-invalid');
+    }
+}
 

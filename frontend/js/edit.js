@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded',
                     employee_id = requested_id;
                 }
 
-                initNav(is_admin);
+                initNavbar(auth_data);
 
                 const form = document.getElementById('employee_record');
 
@@ -41,27 +41,19 @@ document.addEventListener('DOMContentLoaded',
                             data[key] = value.trim();
                         });
 
-                        let errors = [];
-                        if ( !data.first_name ) { errors.push('First name is required'); }
-                        if ( !data.last_name ) { errors.push('Last name is required'); }
-                        if ( !data.phone ) { errors.push('Phone is required'); }
-                        if ( data.phone && !/^[0-9\-\(\)\s\+\.]{7,20}$/.test(data.phone) ) {
-                            errors.push('Phone format is invalid');
-                        }
-
-                        if ( errors.length ) {
-                            showMessage(errors.join('; '), 'error');
+                        if ( !validateForm(data) ) {
+                            showToast('Please correct the highlighted fields.', 'error');
                             return false;
                         }
 
                         api.updateData(employee_id, data).then(
                             function() {
-                                showMessage('Saved successfully.', 'success');
+                                showToast('Saved successfully.', 'success');
                             }
                         )
                         .catch(
                             function() {
-                                showMessage('Save failed. Please try again.', 'error');
+                                showToast('Save failed. Please try again.', 'error');
                             }
                         );
                         return false;
@@ -79,27 +71,41 @@ const loadData = function( id ) {
     
 }
 
-const showMessage = function(message, type) {
-    let msgEl = document.getElementById('save_msg');
-    msgEl.className = 'message ' + type;
-    msgEl.innerText = message;
-    msgEl.style.display = 'block';
+const validateForm = function(data) {
+    let valid = true;
+    valid = validateField('first_name', data.first_name, 'First name is required') && valid;
+    valid = validateField('last_name', data.last_name, 'Last name is required') && valid;
+    valid = validateField('phone', data.phone, 'Phone is required') && valid;
+
+    if ( data.phone && !/^[0-9\-\(\)\s\+\.]{7,20}$/.test(data.phone) ) {
+        valid = invalidateField('phone', 'Enter a valid phone number') && valid;
+    }
+    return valid;
 }
 
-const initNav = function(is_admin) {
-    let listLink = document.getElementById('nav_employee_list');
-    if ( is_admin && listLink ) {
-        listLink.style.display = 'inline';
+const validateField = function(fieldId, value, message) {
+    if ( value ) {
+        clearFieldError(fieldId);
+        return true;
     }
+    return invalidateField(fieldId, message);
+}
 
-    let logoutLink = document.getElementById('nav_logout');
-    if ( logoutLink ) {
-        logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            let api = new EmployeeApi();
-            api.doLogout().then(function() {
-                document.location.href = '/frontend/login.html';
-            });
-        });
+const invalidateField = function(fieldId, message) {
+    let el = document.getElementById(fieldId);
+    if ( el ) {
+        el.classList.add('is-invalid');
+        let feedback = el.parentElement.querySelector('.invalid-feedback');
+        if ( feedback ) {
+            feedback.textContent = message;
+        }
+    }
+    return false;
+}
+
+const clearFieldError = function(fieldId) {
+    let el = document.getElementById(fieldId);
+    if ( el ) {
+        el.classList.remove('is-invalid');
     }
 }

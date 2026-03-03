@@ -1,68 +1,26 @@
-form {
-    width: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap');
+
+body {
+    font-family: "Manrope", sans-serif;
+    background: radial-gradient(circle at top left, #f4f7ff 0%, #f8f9fb 45%, #f2f5f8 100%);
 }
 
-form div {
-    padding-bottom: 5px;
+.navbar-brand {
+    letter-spacing: 0.2px;
 }
 
-form label {
-    width: 120px;
-    display: inline-block;
+.card {
+    border: none;
 }
 
-form input[type="text"] {
-    width: 200px;
+.card.shadow-sm {
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
-div.instructions {
-    padding: 10px;
+.table thead th {
+    border-bottom: 2px solid #e9ecef;
 }
 
-.nav {
-    padding: 10px;
-    background-color: #f0f0f0;
-    margin-bottom: 10px;
-}
-
-.nav a {
-    margin-right: 10px;
-}
-
-#login_msg {
-    background-color: red;
-    color: white;
-    padding: 10px;
-    display: none;
-}
-
-.message {
-    padding: 10px;
-    margin-bottom: 10px;
-    display: none;
-}
-
-.message.success {
-    background-color: #2e7d32;
-    color: #fff;
-}
-
-.message.error {
-    background-color: #b71c1c;
-    color: #fff;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    background-color: #f8f8f8;
-    text-align: left;
+.toast {
+    min-width: 260px;
 }

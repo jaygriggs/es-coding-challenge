@@ -41,3 +41,46 @@ You'll be meeting with our internal team to showcase how you've solved this prob
 * Note any specific issues/bugs you found in the code.
 * What would you recommend the client do from here if they wanted to continue building on this and turn it into a larger scale employee management system? Feel free to simply talk through it or show us a version that you built and why you chose to do it differently.
 
+
+## Setup Instructions
+
+### Requirements
+- PHP 8.x
+- MySQL 8.x
+- A web server (Apache/Nginx) or PHP built-in server for local testing
+
+### Database
+1. Create the database:
+   - `CREATE DATABASE es_challenge;`
+2. Import the schema:
+   - `mysql -u <user> -p es_challenge < es_challenge.sql`
+
+### Environment Variables
+Copy the example and set values for your environment:
+- `.env.example` provides the variables `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`.
+- Configure your web server or local shell to export these variables.
+
+### Run Locally (Optional)
+From the project root:
+- `php -S localhost:8000`
+- Visit `http://localhost:8000/frontend/login.html`
+ - Successful login redirects to `frontend/dashboard.html`.
+
+### Demo Accounts
+- Admin: `admin` / `admin123`
+- Additional employees are available from the seed data in `es_challenge.sql`.
+
+## Architecture Overview
+- `api.php` is a lightweight request router and enforces authentication/authorization.
+- `api/server/` contains API classes (Auth, EmployeeApi) for business logic.
+- `api/shared/` contains the DB connector and model classes.
+- `frontend/` contains static HTML + vanilla JS pages and shared UI helpers.
+- Sessions are used for authentication state; admins are identified by `is_admin`.
+
+## Recommendations for Next Steps
+- Add CSRF protection and server-side input validation for all endpoints.
+- Introduce a migration system instead of manual SQL imports.
+- Move routing and validation into a small framework or router library.
+- Add automated tests (API + UI) and CI checks.
+- Centralize configuration with a `.env` loader and secrets management.
+- Expand authorization rules with roles/permissions and auditing.
