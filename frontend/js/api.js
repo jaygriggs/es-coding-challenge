@@ -29,11 +29,19 @@ class EmployeeApi {
         return this.doRequest('employee', { id: id } );
     }
 
+    listEmployees() {
+        return this.doRequest('employee', { req: 'list' } );
+    }
+
     updateData(id, data) {
         let params = Object.assign({}, data);
         params.id = id;
         params.req = 'update';
         return this.doRequest('employee', params, 'POST');
+    }
+
+    doLogout() {
+        return this.doRequest('auth', { req: 'logout' }, 'POST');
     }
 
     doRequest( obj_type, params, method ) {

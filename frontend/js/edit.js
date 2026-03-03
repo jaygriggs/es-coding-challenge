@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded',
             function( auth_data ) {
 
                 let employee_id = auth_data.id;
+                let is_admin = auth_data.is_admin == 1;
+                let url_params = new URLSearchParams(window.location.search);
+                let requested_id = parseInt(url_params.get('id'), 10);
+
+                if ( is_admin && requested_id ) {
+                    employee_id = requested_id;
+                }
+
+                initNav(is_admin);
 
                 const form = document.getElementById('employee_record');
 
@@ -75,4 +84,22 @@ const showMessage = function(message, type) {
     msgEl.className = 'message ' + type;
     msgEl.innerText = message;
     msgEl.style.display = 'block';
+}
+
+const initNav = function(is_admin) {
+    let listLink = document.getElementById('nav_employee_list');
+    if ( is_admin && listLink ) {
+        listLink.style.display = 'inline';
+    }
+
+    let logoutLink = document.getElementById('nav_logout');
+    if ( logoutLink ) {
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            let api = new EmployeeApi();
+            api.doLogout().then(function() {
+                document.location.href = '/frontend/login.html';
+            });
+        });
+    }
 }

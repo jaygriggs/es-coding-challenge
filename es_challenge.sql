@@ -30,10 +30,11 @@ CREATE TABLE `employees` (
   `office_number` varchar(20) DEFAULT NULL,
   `date_of_birth` date DEFAULT NULL,
   `employee_category` enum('full_time','part_time','intern','contractor') DEFAULT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `username` varchar(10) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +43,8 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` (`id`,`first_name`,`last_name`,`phone`,`office_number`,`date_of_birth`,`employee_category`,`username`,`password`) VALUES (1,'Joe','Smith','(215)245-2552','520',NULL,'full_time','joe','$2y$10$l3d7LVRZSXFy2N8rs6y9C.fD9tk5dIAwjQtK.WQWjmVZCw5IAvati');
+INSERT INTO `employees` (`id`,`first_name`,`last_name`,`phone`,`office_number`,`date_of_birth`,`employee_category`,`is_admin`,`username`,`password`) VALUES (1,'Joe','Smith','(215)245-2552','520',NULL,'full_time',0,'joe','$2y$10$l3d7LVRZSXFy2N8rs6y9C.fD9tk5dIAwjQtK.WQWjmVZCw5IAvati');
+INSERT INTO `employees` (`id`,`first_name`,`last_name`,`phone`,`office_number`,`date_of_birth`,`employee_category`,`is_admin`,`username`,`password`) VALUES (2,'Admin','User',NULL,NULL,NULL,'full_time',1,'admin','$2y$10$QAwkEy38NohRwKEwVgwur.8g.tzYB1mY8Kgy74MTJ/9YTQOY1ByGK');
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

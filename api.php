@@ -15,9 +15,21 @@ switch( $req_obj ) {
     case 'employee':
         $auth_data = $auth->requireLogin();
         $api = new EmployeeApi();
+        $is_admin = !empty($auth_data['is_admin']);
+
+        if ( $req_type === 'list' ) {
+            if ( !$is_admin ) {
+                header("HTTP/1.1 403 Access Denied");
+                $data = [ 'success' => false, 'msg' => 'Access denied' ];
+                break;
+            }
+            $data = $api->employeeListGet();
+            break;
+        }
+
         $request_id = isset($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
 
-        if ( $request_id !== (int) $auth_data['id'] ) {
+        if ( !$is_admin && $request_id !== (int) $auth_data['id'] ) {
             header("HTTP/1.1 403 Access Denied");
             $data = [ 'success' => false, 'msg' => 'Access denied' ];
             break;
@@ -69,6 +81,9 @@ switch( $req_obj ) {
         }
         else if ( $req_type == 'requireLogin' ) {
             $data = $auth->requireLogin();
+        }
+        else if ( $req_type == 'logout' ) {
+            $data = $auth->doLogout();
         }
         break;
 }

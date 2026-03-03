@@ -48,4 +48,12 @@ class EmployeeModel {
         return $stmt->execute($params);
     }
 
+    public function getAll() {
+
+        $db = DB::connect();
+        $stmt = $db->prepare('SELECT id, first_name, last_name, username, employee_category, is_admin FROM employees ORDER BY last_name, first_name');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
 }

@@ -7,7 +7,7 @@ class UserModel {
     public function getByUsername($username) {
         
         $db = DB::connect();
-        $stmt = $db->prepare('SELECT id, username, password FROM employees WHERE username = :username');
+        $stmt = $db->prepare('SELECT id, username, password, is_admin FROM employees WHERE username = :username');
         $stmt->bindValue(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
         

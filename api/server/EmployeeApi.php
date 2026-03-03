@@ -19,4 +19,11 @@ class EmployeeApi {
 
     }
 
+    public function employeeListGet() {
+
+        $model = new EmployeeModel();
+        return $model->getAll();
+
+    }
+
 }
