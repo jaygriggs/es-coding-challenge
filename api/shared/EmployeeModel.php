@@ -17,4 +17,35 @@ class EmployeeModel {
         }
     }
 
+    public function updateById($id, $data) {
+
+        $db = DB::connect();
+        $fields = [
+            'first_name',
+            'last_name',
+            'phone',
+            'office_number',
+            'date_of_birth',
+            'employee_category'
+        ];
+
+        $set_clauses = [];
+        $params = [ ':id' => $id ];
+
+        foreach ( $fields as $field ) {
+            if ( array_key_exists($field, $data) ) {
+                $set_clauses[] = $field . ' = :' . $field;
+                $params[':' . $field] = $data[$field];
+            }
+        }
+
+        if ( empty($set_clauses) ) {
+            return false;
+        }
+
+        $sql = 'UPDATE employees SET ' . implode(', ', $set_clauses) . ' WHERE id = :id';
+        $stmt = $db->prepare($sql);
+        return $stmt->execute($params);
+    }
+
 }

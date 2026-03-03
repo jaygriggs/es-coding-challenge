@@ -6,7 +6,7 @@ class FormFiller {
 
         for ( key in data ) {
             if ( document.getElementById(key) ) {
-                document.getElementById(key).setAttribute('value', data[key]);
+                document.getElementById(key).value = data[key];
             }
         }
 

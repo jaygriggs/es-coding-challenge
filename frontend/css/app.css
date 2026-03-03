@@ -25,3 +25,19 @@ div.instructions {
     padding: 10px;
     display: none;
 }
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.message.success {
+    background-color: #2e7d32;
+    color: #fff;
+}
+
+.message.error {
+    background-color: #b71c1c;
+    color: #fff;
+}

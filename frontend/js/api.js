@@ -16,7 +16,8 @@ class EmployeeApi {
     doLogin( username, password ) {
 
         let req = this.doRequest('auth', 
-            { 'req': 'doLogin', 'username': username, 'password': password }
+            { 'req': 'doLogin', 'username': username, 'password': password },
+            'POST'
         );
 
         return req;
@@ -28,16 +29,24 @@ class EmployeeApi {
         return this.doRequest('employee', { id: id } );
     }
 
-    doRequest( obj_type, params ) {
+    updateData(id, data) {
+        let params = Object.assign({}, data);
+        params.id = id;
+        params.req = 'update';
+        return this.doRequest('employee', params, 'POST');
+    }
+
+    doRequest( obj_type, params, method ) {
 
         let param;
         let param_string = '';
 
         for( param in params ) {
-            param_string = param_string + param + '=' + params[param] + '&';
+            param_string = param_string + encodeURIComponent(param) + '=' + encodeURIComponent(params[param]) + '&';
         }
 
         let request = new XMLHttpRequest();
+        let http_method = method || 'GET';
 
         return new Promise( 
             function(resolve, reject) {
@@ -71,8 +80,15 @@ class EmployeeApi {
                     }
                 }
 
-                request.open("GET", "/api.php?obj=" + obj_type + '&' + param_string, true);
-                request.send();
+                if ( http_method === 'POST' ) {
+                    request.open("POST", "/api.php", true);
+                    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                    request.send('obj=' + encodeURIComponent(obj_type) + '&' + param_string);
+                }
+                else {
+                    request.open("GET", "/api.php?obj=" + obj_type + '&' + param_string, true);
+                    request.send();
+                }
             }
         );
         

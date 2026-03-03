@@ -11,5 +11,12 @@ class EmployeeApi {
 
     }
 
+    public function employeeDataUpdate( $id, $data ) {
+
+        $model = new EmployeeModel();
+        $model->updateById($id, $data);
+        return [ 'success' => true ];
+
+    }
 
 }
