@@ -30,6 +30,16 @@ switch( $req_obj ) {
             break;
         }
 
+        if ( $req_type === 'setTheme' ) {
+            $theme = isset($_REQUEST['theme']) ? $_REQUEST['theme'] : 'light';
+            if ( !in_array($theme, ['light', 'dark', 'cyber'], true) ) {
+                $theme = 'light';
+            }
+            $api->employeeDataUpdate( (int) $auth_data['id'], ['theme_preference' => $theme] );
+            $data = [ 'success' => true ];
+            break;
+        }
+
         if ( $req_type === 'delete' ) {
             if ( !$is_admin ) {
                 header("HTTP/1.1 403 Access Denied");

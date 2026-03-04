@@ -55,7 +55,8 @@ const renderEmployees = function(employees) {
         dobCell.textContent = employee.date_of_birth ? formatDOB(employee.date_of_birth) : '—';
         officeCell.textContent = employee.office_number || '—';
         officeCell.classList.add('d-none', 'd-lg-table-cell');
-        categoryCell.textContent = employee.employee_category || '';
+        let catMap = { 'full_time': 'Full Time', 'part_time': 'Part Time', 'contractor': 'Contractor', 'intern': 'Intern' };
+        categoryCell.textContent = catMap[employee.employee_category] || employee.employee_category || '';
         categoryCell.classList.add('d-none', 'd-lg-table-cell');
         roleCell.textContent = employee.is_admin == 1 ? 'Admin' : 'Employee';
         roleCell.classList.add('d-none', 'd-lg-table-cell');

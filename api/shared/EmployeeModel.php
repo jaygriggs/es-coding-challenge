@@ -7,7 +7,7 @@ class EmployeeModel {
     public function getById($id) {
         
         $db = DB::connect();
-        $stmt = $db->prepare('SELECT id, first_name, last_name, phone, office_number, username, date_of_birth, employee_category FROM employees WHERE id = :id');
+        $stmt = $db->prepare('SELECT id, first_name, last_name, phone, office_number, username, date_of_birth, employee_category, theme_preference FROM employees WHERE id = :id');
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         
@@ -26,7 +26,8 @@ class EmployeeModel {
             'phone',
             'office_number',
             'date_of_birth',
-            'employee_category'
+            'employee_category',
+            'theme_preference'
         ];
 
         $set_clauses = [];

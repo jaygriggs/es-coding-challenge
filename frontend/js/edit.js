@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded',
                 }
 
                 initNavbar(auth_data);
+                initThemeToggle();
 
                 // Show delete button if admin is editing another employee
                 if ( is_admin && requested_id && requested_id !== auth_data.id ) {

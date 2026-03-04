@@ -31,6 +31,7 @@ CREATE TABLE `employees` (
   `date_of_birth` date DEFAULT NULL,
   `employee_category` enum('full_time','part_time','intern','contractor') DEFAULT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `theme_preference` varchar(20) DEFAULT 'light',
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`)

@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded',
 
                 api.doLogin(username, password).then (
                     function( data ) {
+                        if ( data.theme ) {
+                            loadThemeFromData(data.theme);
+                        }
                         document.location.href = '/frontend/dashboard.html';
                     }
                 )

@@ -29,7 +29,14 @@ class Auth {
             session_start();
             $_SESSION['user_id'] = $user->id;
             $_SESSION['is_admin'] = (int) $user->is_admin;
-            return [ 'success' => true, 'id' => $user->id, 'is_admin' => (int) $user->is_admin ];
+
+            // Load theme preference
+            require_once( dirname(__FILE__) . '/../shared/EmployeeModel.php');
+            $empModel = new EmployeeModel();
+            $empData = $empModel->getById($user->id);
+            $theme = !empty($empData->theme_preference) ? $empData->theme_preference : 'light';
+
+            return [ 'success' => true, 'id' => $user->id, 'is_admin' => (int) $user->is_admin, 'theme' => $theme ];
         }
         else {
             return ['success' => false, 'msg' => 'Invalid credentials'];

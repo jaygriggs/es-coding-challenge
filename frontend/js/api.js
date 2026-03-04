@@ -33,6 +33,10 @@ class EmployeeApi {
         return this.doRequest('employee', { req: 'list' } );
     }
 
+    setTheme(theme) {
+        return this.doRequest('employee', { req: 'setTheme', theme: theme }, 'POST');
+    }
+
     deleteEmployee(id) {
         return this.doRequest('employee', { req: 'delete', id: id }, 'POST');
     }
