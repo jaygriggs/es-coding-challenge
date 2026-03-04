@@ -48,6 +48,14 @@ class EmployeeModel {
         return $stmt->execute($params);
     }
 
+    public function deleteById($id) {
+
+        $db = DB::connect();
+        $stmt = $db->prepare('DELETE FROM employees WHERE id = :id');
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
     public function create($data) {
 
         $db = DB::connect();
@@ -69,7 +77,7 @@ class EmployeeModel {
     public function getAll() {
 
         $db = DB::connect();
-        $stmt = $db->prepare('SELECT id, first_name, last_name, username, date_of_birth, employee_category, is_admin FROM employees ORDER BY last_name, first_name');
+        $stmt = $db->prepare('SELECT id, first_name, last_name, username, date_of_birth, office_number, employee_category, is_admin, phone FROM employees ORDER BY last_name, first_name');
         $stmt->execute();
         return $stmt->fetchAll();
     }

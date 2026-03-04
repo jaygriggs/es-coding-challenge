@@ -19,6 +19,14 @@ class EmployeeApi {
 
     }
 
+    public function employeeDelete( $id ) {
+
+        $model = new EmployeeModel();
+        $model->deleteById($id);
+        return [ 'success' => true ];
+
+    }
+
     public function employeeCreate( $data ) {
 
         $model = new EmployeeModel();

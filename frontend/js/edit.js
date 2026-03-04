@@ -19,6 +19,27 @@ document.addEventListener('DOMContentLoaded',
 
                 initNavbar(auth_data);
 
+                // Show delete button if admin is editing another employee
+                if ( is_admin && requested_id && requested_id !== auth_data.id ) {
+                    let deleteBtn = document.getElementById('btn_delete');
+                    let deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                    deleteBtn.style.display = 'inline-block';
+                    deleteBtn.addEventListener('click', function() {
+                        deleteModal.show();
+                    });
+                    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+                        deleteModal.hide();
+                        api.deleteEmployee(employee_id).then(function() {
+                            showToast('Employee deleted.', 'success');
+                            setTimeout(function() {
+                                document.location.href = '/frontend/employee_list.html';
+                            }, 1000);
+                        }).catch(function() {
+                            showToast('Failed to delete employee.', 'error');
+                        });
+                    });
+                }
+
                 const form = document.getElementById('employee_record');
 
                 loadData(employee_id).then(

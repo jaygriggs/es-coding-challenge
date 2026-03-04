@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+header('Content-Type: application/json');
 
 require_once('api/server/EmployeeApi.php');
 require_once('api/server/Auth.php');
@@ -27,6 +30,21 @@ switch( $req_obj ) {
             break;
         }
 
+        if ( $req_type === 'delete' ) {
+            if ( !$is_admin ) {
+                header("HTTP/1.1 403 Access Denied");
+                $data = [ 'success' => false, 'msg' => 'Access denied' ];
+                break;
+            }
+            $delete_id = isset($_REQUEST['id']) ? (int) $_REQUEST['id'] : 0;
+            if ( $delete_id === (int) $auth_data['id'] ) {
+                $data = [ 'success' => false, 'msg' => 'Cannot delete yourself' ];
+                break;
+            }
+            $data = $api->employeeDelete( $delete_id );
+            break;
+        }
+
         if ( $req_type === 'create' ) {
             if ( !$is_admin ) {
                 header("HTTP/1.1 403 Access Denied");
@@ -51,7 +69,11 @@ switch( $req_obj ) {
                 break;
             }
 
-            $data = $api->employeeCreate( $_POST );
+            try {
+                $data = $api->employeeCreate( $_POST );
+            } catch (Exception $e) {
+                $data = [ 'success' => false, 'msg' => $e->getMessage() ];
+            }
             break;
         }
 

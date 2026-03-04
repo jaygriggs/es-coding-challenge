@@ -31,7 +31,7 @@ CREATE TABLE `employees` (
   `date_of_birth` date DEFAULT NULL,
   `employee_category` enum('full_time','part_time','intern','contractor') DEFAULT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
-  `username` varchar(10) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

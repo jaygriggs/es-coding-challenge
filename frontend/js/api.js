@@ -33,6 +33,10 @@ class EmployeeApi {
         return this.doRequest('employee', { req: 'list' } );
     }
 
+    deleteEmployee(id) {
+        return this.doRequest('employee', { req: 'delete', id: id }, 'POST');
+    }
+
     createEmployee(data) {
         let params = Object.assign({}, data);
         params.req = 'create';
