@@ -13,6 +13,10 @@ class EmployeeApi {
 
     public function employeeDataUpdate( $id, $data ) {
 
+        if ( array_key_exists('date_of_birth', $data) && empty($data['date_of_birth']) ) {
+            header("HTTP/1.1 400 Bad Request");
+            return [ 'success' => false, 'msg' => 'Date of birth is required' ];
+        }
         $model = new EmployeeModel();
         $model->updateById($id, $data);
         return [ 'success' => true ];
@@ -29,6 +33,10 @@ class EmployeeApi {
 
     public function employeeCreate( $data ) {
 
+        if ( empty($data['date_of_birth']) ) {
+            header("HTTP/1.1 400 Bad Request");
+            return [ 'success' => false, 'msg' => 'Date of birth is required' ];
+        }
         $model = new EmployeeModel();
         $id = $model->create($data);
         return [ 'success' => true, 'id' => $id ];

@@ -98,10 +98,12 @@ const validateForm = function(data) {
     valid = validateField('first_name', data.first_name, 'First name is required') && valid;
     valid = validateField('last_name', data.last_name, 'Last name is required') && valid;
     valid = validateField('phone', data.phone, 'Phone is required') && valid;
+    valid = validateField('date_of_birth', data.date_of_birth, 'Date of birth is required') && valid;
 
     if ( data.phone && !/^[0-9\-\(\)\s\+\.]{7,20}$/.test(data.phone) ) {
         valid = invalidateField('phone', 'Enter a valid phone number') && valid;
     }
+
     return valid;
 }
 

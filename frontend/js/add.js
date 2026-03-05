@@ -59,6 +59,7 @@ const validateAddForm = function(data) {
     valid = validateField('last_name', data.last_name, 'Last name is required') && valid;
     valid = validateField('username', data.username, 'Username is required') && valid;
     valid = validateField('password', data.password, 'Password is required') && valid;
+    valid = validateField('date_of_birth', data.date_of_birth, 'Date of birth is required') && valid;
     return valid;
 }
 
