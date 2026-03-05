@@ -125,6 +125,18 @@ const initNavbar = function(auth_data) {
         listLink.style.display = is_admin ? 'inline' : 'none';
     }
 
+    // Inject theme nav link into navbar (before logout)
+    let navbarNav = document.querySelector('#navbarMain .navbar-nav');
+    if ( navbarNav && !document.getElementById('nav_theme') ) {
+        let logoutEl = document.getElementById('nav_logout');
+        let themeLink = document.createElement('a');
+        themeLink.className = 'nav-link';
+        themeLink.href = '/frontend/theme.html';
+        themeLink.id = 'nav_theme';
+        themeLink.textContent = 'Theme';
+        navbarNav.insertBefore(themeLink, logoutEl);
+    }
+
     let logoutLink = document.getElementById('nav_logout');
     if ( logoutLink ) {
         // Inject logout modal into page

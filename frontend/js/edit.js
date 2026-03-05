@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded',
                 }
 
                 initNavbar(auth_data);
-                initThemeToggle();
 
                 // Show delete button if admin is editing another employee
                 if ( is_admin && requested_id && requested_id !== auth_data.id ) {
@@ -103,7 +102,6 @@ const validateForm = function(data) {
     if ( data.phone && !/^[0-9\-\(\)\s\+\.]{7,20}$/.test(data.phone) ) {
         valid = invalidateField('phone', 'Enter a valid phone number') && valid;
     }
-
     return valid;
 }
 
